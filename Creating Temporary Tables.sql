@@ -1,6 +1,6 @@
 USE mavenfuzzyfactory;
 
-/*SELECT 
+SELECT 
 	website_sessions.utm_content,
     COUNT(DISTINCT website_sessions.website_session_id) AS sessions,
     COUNT(DISTINCT orders.order_id) AS orders,
@@ -15,10 +15,10 @@ GROUP BY
 	website_sessions.utm_content
     
 ORDER BY 2 DESC;
-*/
 
 
-/*SELECT 
+
+SELECT 
 	website_sessions.utm_source,
     website_sessions.utm_campaign,
     website_sessions.http_referer, 
@@ -31,10 +31,10 @@ WHERE website_sessions.created_at < '2012-04-12'
 GROUP BY website_sessions.utm_source, website_sessions.utm_campaign, website_sessions.http_referer
 
 ORDER BY sessions DESC
-*/
 
 
-/*SELECT 
+
+SELECT 
 	COUNT(DISTINCT website_sessions.website_session_id) AS sessions,
     COUNT(DISTINCT orders.order_id) AS orders,
     COUNT(DISTINCT orders.order_id) / COUNT(DISTINCT website_sessions.website_session_id) AS conversion_rate
@@ -46,9 +46,9 @@ WHERE website_sessions.created_at < '2012-04-14' AND utm_source = 'gsearch' AND 
 	
 
 ORDER BY sessions DESC;
-*/
 
-/*SELECT 
+
+SELECT 
 	WEEK(created_at) AS week_start_date,
     COUNT(DISTINCT website_session_id) AS sessions
     
@@ -58,10 +58,10 @@ WHERE created_at < '2012-05-10' AND utm_source = 'gsearch' AND utm_campaign = 'n
 
 GROUP BY 1
 ORDER BY 2 DESC;
-*/
 
 
-/*SELECT 
+
+SELECT 
 	(CASE WHEN device_type = 'mobile' THEN device_type WHEN device_type = 'desktop' THEN device_type ELSE NULL END) AS device_type,
     COUNT(DISTINCT website_sessions.website_session_id) AS sessions,
     COUNT(DISTINCT orders.order_id) AS orders,
@@ -71,10 +71,10 @@ FROM website_sessions
 WHERE website_sessions.created_at < '2012-05-11' AND utm_source = 'gsearch' AND utm_campaign = 'nonbrand'
 GROUP BY 1
 ORDER BY 3 DESC, 4 DESC
-*/
+
 	
 
-/*SELECT
+SELECT
     MIN(DATE(created_at)) AS week_start_date,
 	COUNT(CASE WHEN device_type = 'mobile' THEN device_type ELSE NULL END) AS m_sessions,
     COUNT(CASE WHEN device_type = 'desktop' THEN device_type ELSE NULL END) AS d_sessions
@@ -83,22 +83,22 @@ WHERE created_at BETWEEN '2012-05-14' AND '2012-06-09'
 				 AND utm_source = 'gsearch' AND utm_campaign = 'nonbrand'
 GROUP BY WEEK(created_at), YEAR(created_at)
 ORDER BY 2 DESC, 3 DESC;
-*/
+
 
 
 -- Finding Top viewed Pages  - Extracting the most viewed pages 
-/*SELECT 
+SELECT 
 	pageview_url,
     COUNT(DISTINCT website_pageview_id) AS pageviews
 FROM website_pageviews
 WHERE website_pageview_id < 1000
 GROUP BY pageview_url
 ORDER BY pageviews DESC;
-*/
+
 
 -- Finding Top Entry Pages - Extracting the most pages viewed on first entry into the website using the concept of creating temporary pages
 
-/*CREATE TEMPORARY TABLE first_pgview
+CREATE TEMPORARY TABLE first_pgview
 SELECT 
 	website_session_id,
     MIN(website_pageview_id) AS mpv
@@ -113,25 +113,26 @@ SELECT
 FROM  first_pgview
 	LEFT JOIN website_pageviews ON first_pgview.mpv = website_pageviews.website_pageview_id
 GROUP BY website_pageviews.pageview_url
-*/
 
 
-/*SELECT
+
+SELECT
 	pageview_url,
 	COUNT(DISTINCT website_session_id) AS sessions
  FROM website_pageviews
  WHERE created_at < '2012-06-09'
 GROUP BY pageview_url
 ORDER BY 2 DESC;
-*/
 
 
-/*CREATE TEMPORARY TABLE Initial_view
+
+CREATE TEMPORARY TABLE Initial_view
 SELECT 
 	website_session_id,
     MIN(website_pageview_id) AS mpv
 FROM website_pageviews
 GROUP BY website_session_id;
+
 
 SELECT
 	website_pageviews.pageview_url AS landing_page,
@@ -141,7 +142,7 @@ FROM Initial_view
 WHERE website_pageviews.created_at < '2012-06-12'
 GROUP BY 1
 ORDER BY 2 DESC;
-*/
+
 
 
 SELECT 
